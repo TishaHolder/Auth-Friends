@@ -4,14 +4,14 @@ import ReactDOM from 'react-dom';
 
 function LoginForm(props){
 
-    const [credentials, setCredentials] = useState({ username: 'Lambda School', password: 'i<3Lambd4' });
+    const [credentials, setCredentials] = useState({ username: "Lambda School", password: "i<3Lambd4" });
 
     const loginHandler = (event) => {
         event.preventDefault();
         axiosWithAuth().post("http://localhost:5000/api/login", credentials)
         .then(res => {
             localStorage.setItem("token", res.data.token);
-            props.history.push("/friends");
+            props.history.push("/dashboard");
         })
         .catch (err => {
             console.log(err);
@@ -28,7 +28,7 @@ function LoginForm(props){
    
 
     return (
-        <form onSubmit = {loginHandler}>
+        <form className = "login-form" onSubmit = {loginHandler}>
             <h2> Sign In </h2>
 
             <input type = "text"

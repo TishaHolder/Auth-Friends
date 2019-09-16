@@ -1,11 +1,35 @@
 import React from "react";
+import FriendCard from "./FriendCard.js";
 
-function FriendsList(props){
+import styled from 'styled-components';
+import 'semantic-ui-css/semantic.css'; 
+import 'semantic-ui-css/semantic.min.css'; 
+import { Grid, Form, Input, TextArea, Button, Select } from "semantic-ui-react";
+
+const FriendsDiv = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    justify-content: space-around;
+    align-content: center;
+    align-content: space-around;
+    width: 100%;
+    height: 500px;   
+
+`;
+
+function FriendsList( { deleteFriend, friendsList }){
+    
     return (
-        <div>
-            Friends List
+        <FriendsDiv>
 
-         </div>
+            {friendsList.map ( (friend, index) => 
+            
+                <FriendCard key = {index} friend = {friend} deleteFriend = {deleteFriend} />
+                
+            )}
+
+         </FriendsDiv>
     );
 }
 
