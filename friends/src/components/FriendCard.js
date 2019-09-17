@@ -12,30 +12,14 @@ function FriendCard( {editFriend, deleteFriend, friend}){
         deleteFriend(friend.id);
         //window.location.reload();//refreshes the window 
     }
-
-    const editHandler = (event) => {
-        editFriend(friend);
-
-        
-    }
-
-    /*const editHandler = (event) => {
-        
-            axiosWithAuth().put(`http://localhost:5000/api/friends/${friend.id}`)
-            .then(res => {
-                setFriendsList([friendsList.filter (friend => friend.id !== id)])
-            })
     
-    
-        }
-    }*/
 
     return (
 
         <Grid.Column padded key={friend.id}>
         <Card>
         <Card.Content>
-            <Card.Header> <Icon  onClick = {editHandler} className = "edit-icon" name="edit outline" />  {friend.name} <Icon onClick = {deleteHandler} className = "delete-icon" name='delete' /></Card.Header>
+            <Card.Header> <Icon  /*onClick = {editHandler}*/ className = "edit-icon" name="edit outline" />  {friend.name} <Icon onClick = {deleteHandler} className = "delete-icon" name='delete' /></Card.Header>
             <Card.Description>{`Age: ${friend.age}`}</Card.Description>
             <Card.Description>{`Email: ${friend.email}`}</Card.Description>           
             

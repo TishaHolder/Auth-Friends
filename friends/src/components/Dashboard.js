@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import {Route} from "react-router-dom";
 import 'semantic-ui-css/semantic.css'; 
 import 'semantic-ui-css/semantic.min.css'; 
 import styled from 'styled-components';
@@ -9,13 +10,14 @@ import axios from "axios";
 
 import FriendsList from "./FriendsList.js";
 import AddFriendForm from "./AddFriendForm.js";
+import friendsbackground from "../friendsbackground.jpg";
+
 
 //styled component - main page container
 const Container = styled.div`
     width: 100%;
     display: flex;
-    justify-content: center;
-   
+    justify-content: center;    
 
 `;
 
@@ -29,7 +31,8 @@ const AppContainer = styled.div`
     align-items: center;    
     box-shadow: 0 -1px 0 #e0e0e0, 0 0 2px rgba(0, 0, 0, 0.12),
     0 2px 4px rgba(0, 0, 0, 0.24);    
-    background-size: 30%;
+    background-image: url(${friendsbackground});
+    background-size: 100% 100%;
     background-repeat: no-repeat;
     
 
@@ -49,30 +52,52 @@ const MainHeading = styled.div`
 
 `;
 
+const LogoutButton = styled.div`
+    text-align: center;
+    width: 15%;
+    background: #3c68ae;
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 3px;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    padding: 10px;
+    box-shadow: 0 3px 0 0 rgba(0, 0, 0, 0.507);
+    margin: 35px;
+`;
+
 function Dashboard(props){
 
     const [friendsList, setFriendsList] = useState([]);
 
-    let initialFriend = {};
+    let initialFriend = {name: "", age: "", email: "" };
 
     useEffect( () => {
 
         axiosWithAuth().get("http://localhost:5000/api/friends")
         .then(res => {
-            setFriendsList([...friendsList, res.data]);
-        })      
+            setFriendsList(res.data);
+            console.log("get friends", res.data)
+        }) 
+        .catch (err => {
+            console.log("get friends error", err.response);
+        })     
         
 
     }, []);    
     
 
     const addFriends = (friend) => {
+        //setFriendsList([...friendsList, friend]);
 
-        setFriendsList([...friendsList, friend]);
-
-        axiosWithAuth().post("http://localhost:5000/api/friends", friendsList)
+        axiosWithAuth().post("http://localhost:5000/api/friends", friend)
         .then(res => {
-            console.log(res.data);
+            console.log("post friends", res.data);
+
+            //server returns the entire array of objects after each post request
+            setFriendsList(res.data);
         })          
 
     }
@@ -80,42 +105,38 @@ function Dashboard(props){
     const deleteFriend = (id) => {
         axiosWithAuth().delete(`http://localhost:5000/api/friends/${id}`)
         .then(res => {
-            setFriendsList([friendsList.filter (friend => friend.id !== id)])
+            //setFriendsList(friendsList.filter (friend => friend.id !== id))
+
+            //server returns the entire array of objects after each delete request
+            setFriendsList(res.data);
         })
 
 
     }
 
-    const editFriend = (friend) => {
-         initialFriend = friendsList.find(friendInFriendList => friendInFriendList.id === friend.id);        
-
+    // fire on logout button, clears token and pushes user back to login page
+    const logout = (e) => {
+        e.preventDefault();
+        localStorage.clear();
+        props.history.push('/');
     }
-
-    const editFriends = (id) => {
-        axiosWithAuth().put(`http://localhost:5000/api/friends/${id}`)
-        .then(res => {
-            console.log(res.data);
-        })
-
-
-    }
-
-    
-
 
 
 
     return (
 
+    
+
     <Container>
-
-        <AppContainer>      
         
-            <MainHeading>Friends</MainHeading>    
 
-            <AddFriendForm editFriends = {editFriends} initialFriend = {initialFriend} addFriends = {addFriends} />
+        <AppContainer>             
+             
+            <LogoutButton onClick ={logout}> Log Out</LogoutButton>
 
-            <FriendsList editFriend = {editFriend} deleteFriend = {deleteFriend} friendsList = {friendsList} />
+            <AddFriendForm addFriends = {addFriends} />                        
+
+            <FriendsList deleteFriend = {deleteFriend} friendsList = {friendsList} />
 
         </AppContainer>
         

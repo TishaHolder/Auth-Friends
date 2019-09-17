@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import { axiosWithAuth } from "../axiosAuth.js";
 import ReactDOM from 'react-dom';
+import axios from "axios";
 
 function LoginForm(props){
 
@@ -8,9 +9,10 @@ function LoginForm(props){
 
     const loginHandler = (event) => {
         event.preventDefault();
-        axiosWithAuth().post("http://localhost:5000/api/login", credentials)
+        axios.post("http://localhost:5000/api/login", credentials)
         .then(res => {
-            localStorage.setItem("token", res.data.token);
+            console.log("login", res);
+            localStorage.setItem("token", res.data.payload);
             props.history.push("/dashboard");
         })
         .catch (err => {
@@ -28,7 +30,7 @@ function LoginForm(props){
 
     return (
         <form className = "login-form" onSubmit = {loginHandler}>
-            <h2> Sign In </h2>
+            <h1> Sign In </h1>
 
             <input type = "text"
                    name = "username"
