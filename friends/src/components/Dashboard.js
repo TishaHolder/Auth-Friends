@@ -53,6 +53,8 @@ function Dashboard(props){
 
     const [friendsList, setFriendsList] = useState([]);
 
+    let initialFriend = {};
+
     useEffect( () => {
 
         axiosWithAuth().get("http://localhost:5000/api/friends")
@@ -84,6 +86,23 @@ function Dashboard(props){
 
     }
 
+    const editFriend = (friend) => {
+         initialFriend = friendsList.find(friendInFriendList => friendInFriendList.id === friend.id);        
+
+    }
+
+    const editFriends = (id) => {
+        axiosWithAuth().put(`http://localhost:5000/api/friends/${id}`)
+        .then(res => {
+            console.log(res.data);
+        })
+
+
+    }
+
+    
+
+
 
 
     return (
@@ -94,9 +113,9 @@ function Dashboard(props){
         
             <MainHeading>Friends</MainHeading>    
 
-            <AddFriendForm addFriends = {addFriends} />
+            <AddFriendForm editFriends = {editFriends} initialFriend = {initialFriend} addFriends = {addFriends} />
 
-            <FriendsList deleteFriend = {deleteFriend} friendsList = {friendsList} />
+            <FriendsList editFriend = {editFriend} deleteFriend = {deleteFriend} friendsList = {friendsList} />
 
         </AppContainer>
         

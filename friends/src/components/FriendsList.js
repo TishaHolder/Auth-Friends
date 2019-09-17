@@ -18,14 +18,14 @@ const FriendsDiv = styled.div`
 
 `;
 
-function FriendsList( { deleteFriend, friendsList }){
+function FriendsList( { editFriend, deleteFriend, friendsList }){
     
     return (
         <FriendsDiv>
 
             {friendsList.map ( (friend, index) => 
             
-                <FriendCard key = {index} friend = {friend} deleteFriend = {deleteFriend} />
+                <FriendCard key = {index} friend = {friend} editFriend = {editFriend} deleteFriend = {deleteFriend} />
                 
             )}
 

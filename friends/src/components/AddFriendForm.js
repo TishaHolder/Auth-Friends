@@ -3,12 +3,22 @@ import React, {useState} from "react";
 
 function AddFriendForm(props){
 
-    const [friend, setFriend] = useState ({ name: "", age: "", email: "" });
+    const [friend, setFriend] = useState (props.friendToEdit || {name: "", age: "", email: "" });
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        setFriend(props.addFriends(friend));
-        setFriend({ name: "", age: "", email: "" });
+
+        if(event.target.name === "add") {
+            setFriend(props.addFriends(friend));
+            setFriend({ name: "", age: "", email: "" });
+        }
+
+        if(event.target.name === "edit") {
+            setFriend(props.editFriends(friend.id));
+            setFriend({ name: "", age: "", email: "" });
+        }
+
+
 
     }
 
@@ -42,7 +52,8 @@ function AddFriendForm(props){
                    placeholder = "What is your friend's email?" 
                    required />
 
-            <button className = "add-friend-button" type = "submit">Add Friend</button>
+            <button onClick = {handleSubmit} className = "add-friend-button" name = "add" type = "submit">Add Friend</button>
+            <button onClick = {handleSubmit} className = "add-friend-button" name = "edit" type = "submit">Edit Friend</button>
               
 
         </form>

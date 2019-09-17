@@ -87,3 +87,13 @@ button {
   cursor: pointer;
   
 }
+
+.edit-icon {
+  position: absolute;
+  color: #3c68ae;
+  padding: 3px;
+  left: 5px;
+  top: 5px;
+  cursor: pointer;
+  
+}

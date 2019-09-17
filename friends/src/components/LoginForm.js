@@ -24,7 +24,6 @@ function LoginForm(props){
             [event.target.name]: event.target.value
         });
     }
-
    
 
     return (
