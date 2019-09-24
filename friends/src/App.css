@@ -1,0 +1,93 @@
+.App {
+  width: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.App-logo {
+ 
+  height:20vmin;
+  width: 30vw;
+  pointer-events: none;
+}
+
+.App-header {
+  width: 100%;
+  background-color: #282c34;  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+  margin-bottom: 100px;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+
+
+.login-form {
+  width: 30%;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+}
+
+input {
+  height: 30px;
+  
+}
+
+button {
+  height: 30px;
+  
+}
+
+.add-friend-form {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 80%;
+  height: 20%;
+  /*background-color: rgb(71, 161, 250);*/
+  /*background-color: #e383b9;*/
+}
+
+.add-friend-form input {
+  width: 25%;
+  height: 30px;
+ 
+}
+
+.add-friend-button {
+  width: 20%;
+  
+}
+
+.delete-icon {
+  position: absolute;
+  color: #3c68ae;
+  padding: 3px;
+  right: 5px;
+  top: 5px;
+  cursor: pointer;
+  
+}
+
+.edit-icon {
+  position: absolute;
+  color: #3c68ae;
+  padding: 3px;
+  left: 5px;
+  top: 5px;
+  cursor: pointer;
+  
+}
